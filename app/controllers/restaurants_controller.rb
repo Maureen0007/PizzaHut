@@ -1,12 +1,13 @@
 class RestaurantsController < ApplicationController
-rescue_from ActiveRecord::RecordNotFound, with: :not_found_response
+
+     rescue_from ActiveRecord::RecordNotFound, with: :not_found_response
     def index
         render json: Restaurant.all, status: :ok
         
     end
 
     def show
-        restaurant= Restaurant.find_by(id: params[:id])
+        restaurant= Restaurant.find_by!(id: params[:id])
         render json: restaurant, serializer: RestaurantAndPizzasSerializer, status: :ok
         
     end
